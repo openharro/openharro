@@ -1,0 +1,6 @@
+
+
+Welcome to Open Harro
+- The configuration file config.xml is essential for this web application to run.
+- if config.xml is not present, the application will go through an installation process.
+

@@ -1,0 +1,119 @@
+<?php
+
+//var_dump($this->dataArray); exit;
+//var_dump($this->tableMetaData); exit;
+//var_dump($this->tableColumnNames); exit;
+$cbArray = '';
+$table_form_name = "AdmAclUserObject";
+
+?>
+
+<div>
+	<table width=100% border=0>
+		<caption></caption>
+		<tr>
+			<td><?php  echo $this->searchbox; ?>
+			</td>
+			<?php  if (!empty($this->q)) {?>
+				<td><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/">[X]</a>
+				</td>
+			<?php } ?>
+			<td width=70%>This is the list of user-objects in the system. Administer these records.
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?php if (!empty($this->dataArray)){ ?>
+<form name="<? echo $table_form_name ?>" action="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/<?php echo $this->myAction; ?>" method="post">
+<form name="AdmAclUserObject" action="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/<?php echo $this->myAction; ?>" method="post">
+<table class="table_list">
+<tr>
+	<th>Del</th>
+	<?php foreach ($this->tableColumnNames as $column_name) { ?>
+		<?php $order_asc = "ORDER_" . $column_name . "_ASC" ?>
+		<?php //$$order_asc = $order_asc ?>
+		<?php $order_desc = "ORDER_" . $column_name . "_DESC" ?>
+		<?php //$$order_desc = $order_desc ?>
+
+		<th>
+		<?php if ($this->order == ADMIN_DAO_ACL_UserPackage::ORDER_NONE){?>
+			<a href="<?php echo $this->url(array('p' => $this->page, 'f' => $this->filter, 'o' => constant("ADMIN_DAO_ACL_UserPackage::ORDER_{$column_name}_ASC"))); ?>">
+				<?php echo ucfirst($column_name) ?>
+			</a>
+		<?php }else{ ?>
+			<?php if ($this->order == constant("ADMIN_DAO_ACL_UserPackage::" . $order_asc)) {?>
+				<a href="<?php echo $this->url(array('p' => $this->page, 'f' => $this->filter, 'o' => constant("ADMIN_DAO_ACL_UserPackage::ORDER_{$column_name}_DESC"))); ?>" style="font:arial,sans-serif; font-weight:bold; color:#00ff00">
+					<?php echo ucfirst($column_name) ?>
+				</a>
+			<?php } elseif ($this->order == constant("ADMIN_DAO_ACL_UserPackage::" . $order_desc)) { ?>
+				<a href="<?php echo $this->url(array('p' => $this->page, 'f' => $this->filter, 'o' => constant("ADMIN_DAO_ACL_UserPackage::ORDER_NONE"))); ?>" style="font:arial,sans-serif; font-weight:bold; color:#cc0000">
+					<?php echo ucfirst($column_name) ?>
+				</a>
+			<?php } else { ?>
+				<a href="<?php echo $this->url(array('p' => $this->page, 'f' => $this->filter, 'o' => constant("ADMIN_DAO_ACL_UserPackage::ORDER_{$column_name}_ASC"))); ?>" style="font:arial,sans-serif; color:#000000">
+					<?php echo ucfirst($column_name) ?>
+				</a>
+
+			<?php } ?>
+		
+		<?php } ?>
+		</th>
+	<?php } ?>
+</tr>
+
+<?php
+foreach($this->dataArray as $record) {
+	$cbArray .= $record['id'] .",";
+?>
+
+	<tr onMouseover="this.style.backgroundColor='#e0e0e0'" onMouseout="this.style.backgroundColor='#FFFFFF'">
+		<td>
+			<input type=checkbox name="actioncb_<?php echo $record['id'] ?>">
+		</td>
+		<td>
+			<?php if (!empty($record['id'])){ ?>
+			<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $record['id'] ?>">
+				<?php echo $record['id'] ?>
+			</a>
+			<?php } ?>
+		</td>
+		<td>
+			<?php if (!empty($record['id'])){ ?>
+			<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $record['id'] ?>">
+				<?php echo $this->getUserLogin($record['user_id']) ?>
+			</a>
+			<?php } ?>
+		</td>
+
+
+		<td><?php echo $this->getObject($record['object_id']) ?></td>
+		<td><?php echo $this->getRight($record['right_id']) ?></td>
+		<td><?php echo $record['creation_date'] ?></td>
+		<td><?php echo $record['last_updated'] ?></td>
+	</tr>
+
+<?php } ?>
+
+</table>
+<br>
+<?php echo $this->Paginator($this->baseURL . '/' . $this->myController . '/' . $this->myAction, $this->page, $this->last_page, 'AdmAclUser'); ?>
+
+<?php }else{ ?>
+	No records found.
+<?php } ?>
+
+<br>
+<br>
+
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/add" />[Add]</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/emptytable" />[Empty Table]</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/droptable" />[Drop Table]</a>
+<a href="<?php print $this->baseURL; ?>/Admin/" />[Admin Menu]</a>
+
+<br><br>
+View Filter<br>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_UserObject::FILTER_NONE ?>" />(None)</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_UserObject::FILTER_ACTIVE ?>" />(Active)</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_UserObject::FILTER_INACTIVE ?>" />(InActive)</a>
+

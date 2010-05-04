@@ -1,0 +1,23 @@
+<?php
+
+//var_dump($this->tableColumnNames); exit;
+//var_dump($this->readArray); exit;
+
+?>
+
+<br></br>
+	<ul id="tabnav">
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list" /><<</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $this->id ?>" title="tabs-2" class="active">Preference</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewpackages/id/<?php echo $this->id ?>" title="tabs-5">Packages</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewusers/id/<?php echo $this->id ?>" title="tabs-2">Users</a></li>
+	</ul>
+
+
+
+		<b>Update the preference details. This is the system administrator's interface</b><br>
+
+		<?php echo $this->form ;?>
+
+<br>
+<br>

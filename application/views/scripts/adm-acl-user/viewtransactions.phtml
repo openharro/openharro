@@ -1,0 +1,79 @@
+<?php
+
+//var_dump($this->dataArray); exit;
+//var_dump($this->tableMetaData); exit;
+//var_dump($this->tableColumnNames); exit;
+
+?>
+<br></br>
+	<ul id="tabnav">
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list" /><<</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $this->id ?>" title="tabs-2">User</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewpassword/id/<?php echo $this->id ?>" title="tabs-2">Password</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewpackages/id/<?php echo $this->id ?>" title="tabs-5">Packages</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewroles/id/<?php echo $this->id ?>" title="tabs-2">Roles</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewobjects/id/<?php echo $this->id ?>" title="tabs-3">Objects</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewpreferences/id/<?php echo $this->id ?>" title="tabs-4">Preferences</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewpaymentmethods/id/<?php echo $this->id ?>">Payment Methods</a></li>
+		<li><a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/viewtransactions/id/<?php echo $this->id ?>" class="active">Transactions</a></li>
+	</ul>
+
+
+<?php if (!empty($this->dataArray)){ ?>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'admin/paginator.phtml'); ?>
+<br>
+<br>
+<table class="table_list">
+<tr>
+	<th>[x]</th>
+	<?php foreach ($this->tableColumnNames as $column_name) { ?>
+		<th><?php echo ucfirst($column_name) ?></th>
+	<?php } ?>
+</tr>
+<?php
+foreach($this->paginator as $record) {
+?>
+	<tr>
+		<td>
+			<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/delete/id/<?php echo $record['id'] ?>">
+				[x]
+			</a>
+		</td>
+		<td>
+			<?php if (!empty($record['id'])){ ?>
+			<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $record['id'] ?>">
+				<?php echo $record['id'] ?>
+			</a>
+			<?php } ?>
+		</td>
+		<td><?php echo $record['user_id'] ?></td>
+		<td><?php echo $record['object_id'] ?></td>
+		<td><?php echo $record['right_id'] ?></td>
+		<td><?php echo $record['creation_date'] ?></td>
+		<td><?php echo $record['last_updated'] ?></td>
+	</tr>
+
+<?php } ?>
+
+</table>
+<br>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'admin/paginator.phtml'); ?>
+
+<?php }else{ ?>
+	No records found.
+<?php } ?>
+
+<br>
+<br>
+
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/add" />[Add]</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/emptytable" />[Empty Table]</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/droptable" />[Drop Table]</a>
+<a href="<?php print $this->baseURL; ?>/Admin/" />[Admin Menu]</a>
+
+<br><br>
+View Filter<br>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_User::FILTER_NONE ?>" />(None)</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_User::FILTER_ACTIVE ?>" />(Active)</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/list/f/<?php echo ADMIN_DAO_ACL_User::FILTER_INACTIVE ?>" />(InActive)</a>
+

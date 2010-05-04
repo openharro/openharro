@@ -1,0 +1,31 @@
+<?php
+
+//var_dump($this->tableColumnNames); exit;
+//var_dump($this->readArray); exit;
+
+?>
+
+<b>Please fill up this form</b><br>
+
+<?php
+foreach($this->tableColumnNames as $column_names) {
+	echo "<div>";
+	echo "<span class=\"label\">" . ucfirst($column_names) . " :</span>";	
+	echo "<span>" . $this->readArray[$column_names] . "</span>";	
+	echo "</div>";
+};
+?>
+
+<?php echo $this->form ;?>
+
+
+
+
+
+<br>
+<br>
+
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/edit/id/<?php echo $this->readArray['id']; ?>" />[Edit]</a>
+<a href="<?php print $this->baseURL; ?>/<?php echo $this->myController; ?>/" />[Return to List]</a>
+<a href="<?php print $this->baseURL; ?>/Admin/" />[Admin Menu]</a>
+

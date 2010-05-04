@@ -1,0 +1,18 @@
+<?php
+
+//var_dump($this->userArray); exit;
+
+?>
+<?php echo $this->myController . "/" . $this->myAction; ?> Page <br><br>
+
+<?php print $this->baseURL; ?>
+
+<?php
+    foreach($this->paginator as $record) {
+    echo $record['username'] . '---';
+    echo $record['password'] . '<br>';
+    };
+    
+?>
+
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'admin\paginator.phtml'); ?>

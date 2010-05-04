@@ -1,0 +1,10 @@
+
+
+Welcome to Open Harro
+- This is the public directory for the web application.
+- Your web server directory settings should point here.
+- Take note that there should be a .htaccess file providing rewrite instructions.
+- If the applications/configs/config.xml is missing, the application will go through the installation procedure to create the appropriate files.
+
+
+
